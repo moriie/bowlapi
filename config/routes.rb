@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  get 'rounds/create'
+  get 'rounds/update'
+  get 'rounds/destroy'
+  get 'players/create'
+  get 'players/destroy'
   get 'games/create'
   get 'games/update'
   get 'games/destroy'
