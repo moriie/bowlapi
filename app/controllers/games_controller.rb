@@ -1,18 +1,18 @@
 class GamesController < ApplicationController
 
+  #POST game/create
   def create
     @game = Game.create(params.permit(:players), scores: '')
-    if @goal.valid? 
+    if @game.valid? 
       render json: status: :ok
     else
       render json: status: :not_acceptable
     end
-  end
+  end    
 
   def update
     @game = Game.find(params[:id])
-
-  end
+  end 
 
   def destroy
 

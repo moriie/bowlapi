@@ -6,6 +6,8 @@ class CreateRounds < ActiveRecord::Migration[6.0]
       t.bool :strike
       t.bool :spare
       t.integer :total
+      t.integer :player_id
+      t.integer :game_id
 
       t.timestamps
     end
