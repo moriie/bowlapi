@@ -3,8 +3,8 @@ class CreateRounds < ActiveRecord::Migration[6.0]
     create_table :rounds do |t|
       t.integer :first_roll
       t.integer :second_roll
-      t.bool :strike
-      t.bool :spare
+      t.boolean :strike
+      t.boolean :spare
       t.integer :total
       t.integer :player_id
       t.integer :game_id

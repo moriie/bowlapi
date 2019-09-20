@@ -4,9 +4,9 @@ class RoundsController < ApplicationController
     @round = Round.create(params.permit[:game_id, :player_id], total: 0)
     @player = Player.find(params[:player_id])
     if @round.valid?
-      render json: {"#{@player.name}, you're up!"}, status: :ok
+      render json: {success: "#{@player.name}, you're up!"}, status: :ok
     else
-      render json: {"Unable to start round - please reset"}, status: :bad_request
+      render json: {error: "Unable to start round - please reset"}, status: :bad_request
   end
 
   def first_attempt

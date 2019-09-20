@@ -4,9 +4,9 @@ class GamesController < ApplicationController
   def create
     @game = Game.create(params.permit(:player_count))
     if @game.valid? 
-      render json: status: :ok
+      render json: {success: "Starting game number #{@game.id}..."}, status: :ok
     else
-      render json: status: :not_acceptable
+      render json: {error: "Something went wrong. Please try again."}, status: :not_acceptable
     end
   end    
 
