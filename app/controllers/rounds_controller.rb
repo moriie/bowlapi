@@ -14,8 +14,8 @@ class RoundsController < ApplicationController
     @round = Round.find(params[:id])
     @round.first_roll = params[:pins_hit]
 
-    if params[:round_num] != 1
-      @prev = Round.find_by(game_id: params[:game_id], round_num: Integer(params[:round_num])-1)
+    if params[:round_num] != '1'
+      @prev = Round.find_by(game_id: params[:game_id], round_num: params[:round_num].to_i-1)
     end
 
     if params[:pins_hit] == '10'
@@ -25,7 +25,7 @@ class RoundsController < ApplicationController
     add_total(Integer(params[:pins_hit]))
 
     if @prev && (@prev.strike == true || @prev.spare == true)
-      add_bonus(Integer(params[:pins_hit]))
+      add_bonus(params[:pins_hit].to_i)
     end
 
   end
@@ -35,22 +35,22 @@ class RoundsController < ApplicationController
     @round.second_roll = params[:pins_hit]
 
     if params[:round_num] != 1
-      @prev = Round.find_by(game_id: params[:game_id], round_num: Integer(params[:round_num])-1)
+      @prev = Round.find_by(game_id: params[:game_id], round_num: params[:round_num].to_i-1)
     end
 
     if @round.first_roll + @round.second_roll == '10' 
       @round.spare = true
     end
     
-    add_total(Integer(params[:pins_hit]))
+    add_total(params[:pins_hit].to_i)
 
     if @prev && (@prev.strike == true)
-      add_bonus(Integer(params[:pins_hit]))
+      add_bonus(params[:pins_hit].to_i)
     end
   end
 
   def add_bonus(points)
-    @prev = Round.find_by(game_id: params[:game_id], round_num: params[:round_num]-1)
+    @prev = Round.find_by(game_id: params[:game_id], round_num: params[:round_num].to_i-1)
     @prev.total = @prev.total + points
     @prev.save
   end
