@@ -1,4 +1,4 @@
-
+# This is a miniature demonstration project.
 
 ## Notes 
 

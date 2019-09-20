@@ -24,7 +24,7 @@ class RoundsController < ApplicationController
     add_total(params[:pins_hit])
 
     if @prev.strike === true || @prev.spare === true
-      redirect_to "game/#{@round.game_id}/round/#{@round.id-1}/bonus/#{params[:pins_hit]}"
+      redirect_to "game/#{@round.game_id}/#{@player.id}round/#{@round.id-1}/bonus/#{params[:pins_hit]}"
     end
   end
 
@@ -40,7 +40,7 @@ class RoundsController < ApplicationController
     add_total(params[:pins_hit])
 
     if @prev.strike === true
-      redirect_to "game/#{@round.game_id}/round/#{@round.id-1}/bonus/#{params[:pins_hit]}"
+      redirect_to "game/#{@round.game_id}/#{@player.id}/round/#{@round.id-1}/bonus/#{params[:pins_hit]}"
     end
   end
 
