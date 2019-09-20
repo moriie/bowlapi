@@ -1,5 +1,9 @@
 class GamesController < ApplicationController
 
+  def index
+    render json: Game.all 
+  end
+
   #POST game/create
   def create
     @game = Game.create(params.permit(:player_count))
