@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_19_055828) do
+ActiveRecord::Schema.define(version: 2019_09_20_070444) do
 
   create_table "games", force: :cascade do |t|
     t.integer "player_count"
@@ -26,11 +26,12 @@ ActiveRecord::Schema.define(version: 2019_09_19_055828) do
   end
 
   create_table "rounds", force: :cascade do |t|
+    t.integer "round_num"
     t.integer "first_roll"
     t.integer "second_roll"
     t.boolean "strike"
     t.boolean "spare"
-    t.integer "total"
+    t.integer "total", default: 0
     t.integer "player_id"
     t.integer "game_id"
     t.datetime "created_at", precision: 6, null: false
