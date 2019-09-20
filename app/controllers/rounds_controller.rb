@@ -1,4 +1,5 @@
 class RoundsController < ApplicationController
+  
   def create
     @round = Round.create(params.permit[:game_id, :player_id], total: 0)
     @player = Player.find(params[:player_id])
@@ -10,24 +11,49 @@ class RoundsController < ApplicationController
 
   def first_attempt
     @round = Round.find(params[:id])
-    @pins_hit = params[:hit]
+    @player = Player.find(params[:player_id])
+    @prev = Round.find(params[:id]-1)
 
-    @
+    @round.first_roll = params[:pins_hit]
+
+    if params[:pins_hit] === 10
+      @round.strike = true
+    end
+
+    @player.score = @player.score + params[:pins_hit]    
+    add_total(params[:pins_hit])
+
+    if @prev.strike === true || @prev.spare === true
+      redirect_to "game/#{@round.game_id}/round/#{@round.id-1}/bonus/#{params[:pins_hit]}"
+    end
   end
 
   def second_attempt
-  end
-
-  def add_strike
-  end
-
-  def add_spare
-  end
-
-  def create_total
-
-  def destroy
     @round = Round.find(params[:id])
-    @round.destroy
+    @round.second_roll = params[:pins_hit]
+
+    if @round.first_roll + @round.second_roll === 10 
+      @round.spare = true
+    end
+    
+    @player.score = @player.score + params[:pins_hit]    
+    add_total(params[:pins_hit])
+
+    if @prev.strike === true
+      redirect_to "game/#{@round.game_id}/round/#{@round.id-1}/bonus/#{params[:pins_hit]}"
+    end
   end
+
+  def add_bonus
+    @round = Round.find(params[:id])
+
+    @player.score = @player.score + params[:pins_hit]    
+    add_total(params[:pins_hit])
+  end
+
+  def add_total(points)
+    @round = Round.find(params[:id])
+    @round.total = @round.total + points
+  end
+
 end
